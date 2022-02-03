@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# TrackIt App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Now, you are able to track your habits with this app, so let`s [TrackIt](https://trackit-vitor-carneiro.vercel.app/).
 
-## Available Scripts
+<p align="center">
+  <img src="./src/assets/trackit-usage.gif" alt="trackit-usage.gif" height="540" />
+</p>
 
-In the project directory, you can run:
+## About
 
-### `npm start`
+TrackIt is a habit tracker that helps showing you what your day habit and if you ara doing it right with consistency.
+Reaching your goals every day and showing it to you improving you.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+In Today page shows the habit of that specifically day (ex. on mondays your habit is ride a bike around the nearest park).
+You can check it if you have done this habit.
+And you can see on history page if you doing it right or not.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Implemented features
 
-### `npm test`
+- Sign Up
+- Login
+- List all habits of today
+- Add habit
+- Remove habit
+- Show calendar which shows days if you've done all habits or not
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How to run
 
-### `npm run build`
+1. Clone this repository
+2. Install dependencies
+```bash
+npm i
+```
+3. Run this with
+```bash
+npm start
+```
+4. You can optionally build the project running
+```bash
+npm run build
+```
+5. Finally access http://localhost:3000 on your favorite browser (unless it is Internet Explorer. In this case, review your life decisions)
+## Technologies
+The following tools and frameworks were used in the construction of the project:<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[![wakatime](https://wakatime.com/badge/user/75b063fd-fc90-4981-92ec-8042466ed674/project/fb53cd2f-b2ff-4ca4-b453-ed5d62586c42.svg)](https://wakatime.com/@vitorcarneiro/projects/rkocqcduyg?start=2022-01-07&end=2022-01-13)
+<p>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/react-app%20-%2320232a.svg?&style=flat&color=60ddf9&logo=react&logoColor=%2361DAFB"/>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=flat&color=informational'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/styled-components%20-%2320232a.svg?&style=flat&color=b8679e&logo=styled-components&logoColor=%3a3a3a'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=flat&color=informational'>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/react_router%20-%2320232a.svg?&style=flat&logo=react&logoColor=%2361DAFB"/>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/react-ionicons%20-%2320232a.svg?&style=flat&color=f28dc7&logo=react-icons&logoColor=%2361DAFB'>
+</p>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## How to run
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Clone this repository
+2. Install dependencies
+```bash
+npm i
+```
+4. Run the front-end with
+```bash
+npm start
+```
+5. You can optionally build the project running
+```bash
+npm run build
+```
+6. Finally access http://localhost:3000 on your favorite browser (unless it is Internet Explorer. In this case, review your life decisions)
