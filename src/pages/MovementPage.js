@@ -20,7 +20,7 @@ export default function Home() {
     const title = type === 'cash-in' ? 'Nova entrada' : 'Nova saída';
 
     const [isLoading, setIsLoading] = useState(false);
-    const [cashValue, setCashValue] = useState();
+    const [cashValue, setCashValue] = useState(0);
     const [description, setDescription] = useState('');
     const { user, setAndPersistUser } = useContext(UserContext);
     
@@ -39,13 +39,11 @@ export default function Home() {
 
             <LoginForm onSubmit={handleLogin}>
                 <CurrencyInput
+                    intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
                     allowNegativeValue={false}
-                    min="0"
-                    step="0.01"
+                    decimalScale={2}
+                    step={1}
                     placeholder="Valor"
-                    prefix="R$"
-                    decimalSeparator=","
-                    groupSeparator="."
                     isLoading={isLoading}
                     value={cashValue}
                     onChange={(e) => {setCashValue(e.target.value); console.log(cashValue)}}
