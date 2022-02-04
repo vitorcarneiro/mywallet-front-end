@@ -3,11 +3,10 @@ import { useState } from "react";
 
 import UserContext from "./contexts/UserContext.js";
 
-import RegisterPage from './pages/RegisterPage.js';
 import LoginPage from './pages/LoginPage.js';
-import TodayPage from './components/TodayPage.js';
-import HabitsPage from './pages/HabitsPage.js';
-import HistoryPage from './pages/HistoryPage.js';
+import RegisterPage from './pages/RegisterPage.js';
+import HomePage from './pages/HomePage.js';
+import MovementPage from './pages/MovementPage.js';
 
 export default function App() {
 
@@ -23,14 +22,13 @@ export default function App() {
 	}
 
     return (
-        <UserContext.Provider value={{ user, setUser, allTodayTasks, setAllTodayTasks, tasksDoneToday, setTasksDoneToday, userLocalStorage, setAndPersistUser }}>
+        <UserContext.Provider value={{ user, allTodayTasks, setAllTodayTasks, tasksDoneToday, setTasksDoneToday, userLocalStorage, setAndPersistUser }}>
             <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={ <LoginPage /> }></Route>
+                        <Route path="/" element={ <HomePage /> }></Route>
+                        <Route path="/signin" element={ <LoginPage /> }></Route>
                         <Route path="/register" element={ <RegisterPage /> }></Route>
-                        <Route path="/hoje" element={ <TodayPage /> }></Route>
-                        <Route path="/habitos" element={ <HabitsPage /> }></Route>
-                        <Route path="/historico" element={ <HistoryPage /> }></Route>
+                        <Route path="/movement/:type" element={ <MovementPage /> }></Route>
                     </Routes>
             </BrowserRouter>
         </UserContext.Provider>

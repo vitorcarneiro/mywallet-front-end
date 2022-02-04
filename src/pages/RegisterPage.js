@@ -17,33 +17,33 @@ export default function RegisterPage() {
 
     const navigate = useNavigate();
 
-    function submitClientData(event) {
+    async function submitClientData(event) {
         event.preventDefault();
+
+        if (password !== passwordConfirm) {
+            alert(`Please, confirm right your password!`);
+            return;
+        }
 
         const clientData = {
             email: email,
             name: name,
             password: password
         }
-
         setIsLoading(true);
         
-        const promise = signUp(clientData);
-        
-        promise.then(() => {
+        try {
+            await signUp(clientData);
             navigate('/');
-        });
-        
-        promise.catch((error) => {
-            console.log(error.response);
+            
+        } catch(error) {
             alert(`STATUS: ${error.response.status}
             
-                ${error.response.data.message}
-                ${(error.response.data.details) ? error.response.data.details : ""}
+            ${error.response.data.message}
+            ${(error.response.data.details) ? error.response.data.details : ""}
             `);
-
             setIsLoading(false);
-        });
+        }
     }
 
     return (

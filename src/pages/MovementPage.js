@@ -1,74 +1,54 @@
 import { useState, useContext, useEffect } from "react";
 import styled from 'styled-components';
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import Loader from "react-loader-spinner";
+import CurrencyInput from 'react-currency-input-field';
+
 
 import { login } from '../services/API.js';
 import UserContext from "../contexts/UserContext";
 
-export default function LoginPage() {
+export default function Home() {
+	const { type } = useParams();
+    const navigate = useNavigate();
+    
+    if (!type) {
+        navigate("/cashflow")   
+    }
+
+    const title = type === 'cash-in' ? 'Nova entrada' : 'Nova saída';
 
     const [isLoading, setIsLoading] = useState(false);
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const navigate = useNavigate();
-
+    const [cashValue, setCashValue] = useState();
+    const [description, setDescription] = useState('');
     const { user, setAndPersistUser } = useContext(UserContext);
-
-    useEffect(() => {
-        if (user){
-         navigate("/hoje")   
-        }
-    },[navigate, user])
-
+    
     function handleLogin(event) {
         event.preventDefault();
 
-        const clientLogin = {
-            email: email,
-            password: password
-        }
+      
 
-        startLogin(clientLogin);
-    };
-
-    function startLogin(clientLogin) {
-        setIsLoading(true);
-
-        const promise = login(clientLogin);
-
-        promise.then((clientData) => {
-            setAndPersistUser(clientData.data);
-        
-            navigate('/hoje');
-        });
-        
-        promise.catch((error) => {
-            console.log(error.response);
-            alert(`STATUS: ${error.response.status}
-            
-                ${error.response.data.message}
-                ${(error.response.data.details) ? error.response.data.details : ""}
-            `);
-
-            setIsLoading(false);
-        });
     };
 
     return (
         <Container>
-            <h1>MyWallet</h1>
+            <Top>
+                <h1>{title}</h1>
+            </Top>
 
             <LoginForm onSubmit={handleLogin}>
-                <Input type="email"
-                    id="email"
-                    placeholder="E-mail"
+                <CurrencyInput
+                    allowNegativeValue={false}
+                    min="0"
+                    step="0.01"
+                    placeholder="Valor"
+                    prefix="R$"
+                    decimalSeparator=","
+                    groupSeparator="."
                     isLoading={isLoading}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={cashValue}
+                    onChange={(e) => {setCashValue(e.target.value); console.log(cashValue)}}
                     required
                 />
 
@@ -76,8 +56,8 @@ export default function LoginPage() {
                     id="password"
                     placeholder="Senha"
                     isLoading={isLoading}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     required
                 />
 
@@ -85,43 +65,58 @@ export default function LoginPage() {
                     {isLoading ? (
                         <Loader type="ThreeDots" color="#FFF" height={13} width={51} />
                     ) : (
-                        "Entrar"
+                        "Salvar entrada"
                     )}
                 </Button>
-            </LoginForm>
-
-            <LogInButton to={`/register`} isLoading={isLoading}>
-                Primeira vez? Cadastre-se!
-            </LogInButton>
-
+            </LoginForm>   
         </Container>
     );
 }
 
-const Container = styled.main`
+const Container = styled.div`
     position: absolute;
     top: 0;
     left: 0;
+
+    box-sizing: border-box;
     width: 100vw;
     height: 100vh;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 
     background-color: #8C11BE;
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: normal;
+    color: #FFF;
+
+    main {
+        height: 75%;
+        width: 100%;
+        position: relative;
+
+        border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+    }
+`;
+
+const Top = styled.header`
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     h1 {
-        font-family: 'Saira Stencil One', cursive;
-        color: #FFF;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 32px;
         margin: 0;
+        font-size: 26px;
+        font-weight: 700;
     }
+
 `;
 
 const LoginForm = styled.form`
@@ -192,7 +187,7 @@ const Button = styled.button`
 
     font-size: 21px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     color: #FFFFFF;
 
     cursor: pointer;
@@ -226,4 +221,55 @@ const LogInButton = styled(Link)`
             pointer-events: none !important;
         `)
     };
+`;
+
+
+const Balance = styled.div`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    
+    box-sizing: border-box;
+    padding: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    background-color: #FFF;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.15);
+
+    div {
+        font-size: 17px;
+        font-weight: 700;
+        color: #000;
+    }
+`;
+
+const CashData = styled.div`
+    font-size: 16px;
+    text-align: left;
+
+    width: 100%;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+`;
+
+const Date = styled.p`
+    color: #C6C6C6;
+`;
+
+const Description = styled.p`
+    color: #000;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; 
 `;
