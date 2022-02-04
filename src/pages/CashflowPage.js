@@ -9,15 +9,16 @@ import { ExitOutline, AddCircleOutline, RemoveCircleOutline} from 'react-ionicon
 import { login } from '../services/API.js';
 import UserContext from "../contexts/UserContext";
 
-export default function Home() {
+export default function CashflowPage() {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [hasData, setHasData] = useState(true);
+    const [hasData, setHasData] = useState(false);
     const { user, setAndPersistUser } = useContext(UserContext);
-    
     const navigate = useNavigate();
 
-    const name = 'Fulano';
+    /* Servidor aqui */
+
+    const name = 'admin';
 
     const cashFlowData = [
         {
@@ -41,110 +42,13 @@ export default function Home() {
             value: 500.00
         },
         {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
             date: "15/11",
             description: "Salário",
             value: 3000.00
         }
     ];
 
-    const balance = cashFlowData.map((cashData) => cashData.value).reduce((partialSum, a) => partialSum + a, 0);
-
-
+    const balance = cashFlowData?.map((cashData) => cashData.value).reduce((partialSum, a) => partialSum + a, 0);
 
     return (
         <Container>
@@ -184,11 +88,11 @@ export default function Home() {
 
                 <Balance>
                     <div>
-                        SALDO
+                        {hasData ? 'SALDO' : ''}
                     </div>
 
                     <Value isPositive={balance}>
-                        {balance}
+                        {hasData ? balance : ''}
                     </Value>
                 </Balance>
             </main>

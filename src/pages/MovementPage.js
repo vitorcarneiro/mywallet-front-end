@@ -12,48 +12,49 @@ import UserContext from "../contexts/UserContext";
 export default function Home() {
 	const { type } = useParams();
     const navigate = useNavigate();
-    
-    if (!type) {
-        navigate("/cashflow")   
-    }
 
-    const title = type === 'cash-in' ? 'Nova entrada' : 'Nova saída';
+    const typeText = type === 'cash-in' ? 'entrada' : 'saída';
 
     const [isLoading, setIsLoading] = useState(false);
+    const [stringCashValue, setStringCashValue] = useState('');
     const [cashValue, setCashValue] = useState(0);
     const [description, setDescription] = useState('');
     const { user, setAndPersistUser } = useContext(UserContext);
     
-    function handleLogin(event) {
+    function handleNewMovimentation(event) {
         event.preventDefault();
+        setIsLoading(true);
 
-      
-
+        const cashArray = stringCashValue.split(',')
+        const decimal = cashArray[1]?.substring(0, cashArray[1].length - 1)
+        
+        if (decimal) { cashArray[1] = decimal };
+        
+        setCashValue(parseFloat(cashArray.join('.')));
+   
+        /* Servidor aqui */
     };
 
     return (
         <Container>
             <Top>
-                <h1>{title}</h1>
+                <h1>Nova {typeText}</h1>
             </Top>
 
-            <LoginForm onSubmit={handleLogin}>
+            <LoginForm onSubmit={handleNewMovimentation} isLoading={isLoading}>
                 <CurrencyInput
-                    intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+                    decimalSeparator=","
+                    disableGroupSeparators={true}
+                    placeholder="Valor"
                     allowNegativeValue={false}
                     decimalScale={2}
-                    step={1}
-                    placeholder="Valor"
-                    isLoading={isLoading}
-                    value={cashValue}
-                    onChange={(e) => {setCashValue(e.target.value); console.log(cashValue)}}
+                    onChange={(e) => setStringCashValue(e.target.value)}
                     required
                 />
 
-                <Input type="password"
-                    id="password"
-                    placeholder="Senha"
-                    isLoading={isLoading}
+                <input
+                    type="text"
+                    placeholder="Descrição"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
@@ -63,7 +64,7 @@ export default function Home() {
                     {isLoading ? (
                         <Loader type="ThreeDots" color="#FFF" height={13} width={51} />
                     ) : (
-                        "Salvar entrada"
+                        `Salvar ${typeText}`
                     )}
                 </Button>
             </LoginForm>   
@@ -126,53 +127,53 @@ const LoginForm = styled.form`
     justify-content: flex-start;
 
     gap: 10px;
-`;
 
-const Input = styled.input`
-    width: 303px;
-    height: 45px;
+    input {
+        width: 303px;
+        height: 45px;
 
-    background: #FFFFFF;
-    border: 1px solid #FFFFFF;
-    box-sizing: border-box;
-    border-radius: 5px;
+        background: #FFFFFF;
+        border: 1px solid #FFFFFF;
+        box-sizing: border-box;
+        border-radius: 5px;
 
-    padding: 11px;
+        padding: 11px;
 
-    font-size: 20px;
-    line-height: 25px;
-    color: black;
+        font-size: 20px;
+        line-height: 25px;
+        color: black;
 
-    ::-webkit-input-placeholder {
-        color: #D5D5D5;
-    }
-    :-moz-placeholder {
-        color: #D5D5D5;
+        ::-webkit-input-placeholder {
+            color: #D5D5D5;
+        }
+        :-moz-placeholder {
+            color: #D5D5D5;
+            opacity:  1;
+        }
+        ::-moz-placeholder {
+            color: #D5D5D5;
         opacity:  1;
-    }
-    ::-moz-placeholder {
-        color: #D5D5D5;
-    opacity:  1;
-    }
-    :-ms-input-placeholder {
-        color: #D5D5D5;
-    }
-    ::-ms-input-placeholder {
-        color: #D5D5D5;
-    }
+        }
+        :-ms-input-placeholder {
+            color: #D5D5D5;
+        }
+        ::-ms-input-placeholder {
+            color: #D5D5D5;
+        }
 
-    ::placeholder {
-        color: #D5D5D5;
-    }
+        ::placeholder {
+            color: #D5D5D5;
+        }
 
-    ${({ isLoading }) =>
-        (isLoading && `
-            background: #F2F2F2;
-            color: #AFAFAF;
-            opacity: 0.7;
-            pointer-events: none;
-        `)
-    };
+        ${({ isLoading }) =>
+            (isLoading && `
+                background: #F2F2F2;
+                color: #AFAFAF;
+                opacity: 0.7;
+                pointer-events: none;
+            `)
+        };
+    }
 `;
 
 const Button = styled.button`

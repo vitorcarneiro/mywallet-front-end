@@ -19,6 +19,7 @@ export default function RegisterPage() {
 
     async function submitClientData(event) {
         event.preventDefault();
+        setIsLoading(true);
 
         if (password !== passwordConfirm) {
             alert(`Please, confirm right your password!`);
@@ -30,9 +31,10 @@ export default function RegisterPage() {
             name: name,
             password: password
         }
-        setIsLoading(true);
         
         try {
+            /* servidor aqui */
+
             await signUp(clientData);
             navigate('/');
             

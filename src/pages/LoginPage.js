@@ -9,6 +9,12 @@ import UserContext from "../contexts/UserContext";
 
 export default function LoginPage() {
 
+    const admin = {
+        name: "admin",
+        email: "admin@admin",
+        password: "admin"
+    }
+
     const [isLoading, setIsLoading] = useState(false);
 
     const [email, setEmail] = useState('');
@@ -18,45 +24,53 @@ export default function LoginPage() {
 
     const { user, setAndPersistUser } = useContext(UserContext);
 
-    useEffect(() => {
-        if (user){
-         navigate("/hoje")   
-        }
-    },[navigate, user])
+    // useEffect(() => {
+    //     if (user){
+    //      navigate("/hoje")   
+    //     }
+    // },[navigate, user])
 
     function handleLogin(event) {
         event.preventDefault();
-
-        const clientLogin = {
-            email: email,
-            password: password
-        }
-
-        startLogin(clientLogin);
-    };
-
-    function startLogin(clientLogin) {
         setIsLoading(true);
 
-        const promise = login(clientLogin);
+        if (email === admin.email && password === admin.password) {
+            navigate('/cashflow');
+        }
 
-        promise.then((clientData) => {
-            setAndPersistUser(clientData.data);
-        
-            navigate('/hoje');
-        });
-        
-        promise.catch((error) => {
-            console.log(error.response);
-            alert(`STATUS: ${error.response.status}
-            
-                ${error.response.data.message}
-                ${(error.response.data.details) ? error.response.data.details : ""}
-            `);
+        /* Servidor aqui */
 
-            setIsLoading(false);
-        });
+
+        // const clientLogin = {
+        //     email: email,
+        //     password: password
+        // }
+
+        //startLogin(clientLogin);
     };
+
+    // function startLogin(clientLogin) {
+    //     setIsLoading(true);
+
+    //     const promise = login(clientLogin);
+
+    //     promise.then((clientData) => {
+    //         setAndPersistUser(clientData.data);
+        
+    //         navigate('/hoje');
+    //     });
+        
+    //     promise.catch((error) => {
+    //         console.log(error.response);
+    //         alert(`STATUS: ${error.response.status}
+            
+    //             ${error.response.data.message}
+    //             ${(error.response.data.details) ? error.response.data.details : ""}
+    //         `);
+
+    //         setIsLoading(false);
+    //     });
+    // };
 
     return (
         <Container>
