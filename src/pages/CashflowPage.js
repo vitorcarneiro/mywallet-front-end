@@ -1,59 +1,53 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
 import Loader from "react-loader-spinner";
 import { ExitOutline, AddCircleOutline, RemoveCircleOutline} from 'react-ionicons'
+import useAuth from "../hooks/useAuth";
 
-
-import { login } from '../services/API.js';
-import UserContext from "../contexts/AuthContext";
+import { getCashflow } from '../services/API.js';
 
 export default function CashflowPage() {
+    const { auth } = useAuth();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [hasData, setHasData] = useState(false);
-    const { user, setAndPersistUser } = useContext(UserContext);
-    const navigate = useNavigate();
+    const [cashFlowData, setCashFlowData] = useState([]);
+    const [balance, setBalance] = useState(0);
 
-    /* Servidor aqui */
+    useEffect(() => {
+        setIsLoading(true);
+        const promise = getCashflow(auth.token);
 
-    const name = 'Vitor Carneiro';
+        promise.then((response) => {
+            console.log('then');
+            console.log(response.data);
+            setIsLoading(false);
+            setCashFlowData([...response.data]);
 
-    const cashFlowData = [
-        {
-            date: "30/11",
-            description: "Almoço mãeeeeeeeeeeeeeeeeeeeeeeeeeee",
-            value: -39.90
-        },
-        {
-            date: "27/11",
-            description: "Mercado",
-            value: -542.54
-        },
-        {
-            date: "26/11",
-            description: "Compras Churrasco",
-            value: -67.60
-        },
-        {
-            date: "20/11",
-            description: "Empréstimo Maria",
-            value: 500.00
-        },
-        {
-            date: "15/11",
-            description: "Salário",
-            value: 3000.00
-        }
-    ];
+        });
 
-    const balance = cashFlowData?.map((cashData) => cashData.value).reduce((partialSum, a) => partialSum + a, 0);
+        promise.catch((error) => {
+            console.log('catch');
+            console.log(error);
+            alert(`STATUS: ${error.response.statusText} (${error.response.status})
+            
+            ${error.response.data}
+            `);
+            setIsLoading(false);
+        });
+
+    }, [auth.token]);
+
+    console.log(cashFlowData.map((cashData) => cashData.movement).reduce((partialSum, a) => partialSum + a, 0));
+
+    console.log(cashFlowData);
+    console.log(balance);
+    console.log(isLoading);
 
     return (
         <Container>
             <Top>
-                <h1>Olá, {name}</h1>
+                <h1>Olá, {auth.name}</h1>
                 <ExitOutline className='ion-icon'
                     color={'#ffffff'} 
                     height="25px"
@@ -62,8 +56,8 @@ export default function CashflowPage() {
             </Top>
 
             <main>
-                <CashFlow hasData={hasData}>
-                    {hasData ? 
+                <CashFlow hasData={cashFlowData.length !== 0}>
+                    {cashFlowData.length !== 0 ? 
                         cashFlowData.map((cashData) =>
                         <CashData>
                                 <Date>
@@ -88,11 +82,11 @@ export default function CashflowPage() {
 
                 <Balance>
                     <div>
-                        {hasData ? 'SALDO' : ''}
+                        {cashFlowData.length !== 0 ? 'SALDO' : ''}
                     </div>
 
                     <Value isPositive={balance}>
-                        {hasData ? balance : ''}
+                        {cashFlowData.length !== 0 ? balance : ''}
                     </Value>
                 </Balance>
             </main>
