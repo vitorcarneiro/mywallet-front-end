@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import Loader from "react-loader-spinner";
 import { ExitOutline, AddCircleOutline, RemoveCircleOutline} from 'react-ionicons'
+import dayjs from 'dayjs';
 import useAuth from "../hooks/useAuth";
+
 
 import { getCashflow } from '../services/API.js';
 
@@ -15,31 +17,30 @@ export default function CashflowPage() {
     const [balance, setBalance] = useState(0);
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     setIsLoading(true);
-    //     const promise = getCashflow(auth.token);
+    useEffect(() => {
+        setIsLoading(true);
+        const promise = getCashflow(auth.token);
 
-    //     promise.then((response) => {
-    //         console.log('then');
-    //         console.log(response.data);
-    //         setIsLoading(false);
-    //         setCashFlowData([...response.data]);
+        promise.then((response) => {
+            console.log('then');
+            console.log(response.data);
+            setIsLoading(false);
+            setCashFlowData([...response.data]);
+        });
 
-    //     });
-
-    //     promise.catch((error) => {
-    //         console.log('catch');
-    //         console.log(error);
-    //         alert(`STATUS: ${error.response.statusText} (${error.response.status})
+        promise.catch((error) => {
+            console.log('catch');
+            console.log(error);
+            alert(`STATUS: ${error.response.statusText} (${error.response.status})
             
-    //         ${error.response.data}
-    //         `);
-    //         setIsLoading(false);
-    //     });
+            ${error.response.data}
+            `);
+            setIsLoading(false);
+        });
 
-    // }, [auth.token]);
+    }, [auth.token]);
 
-    // console.log(cashFlowData.map((cashData) => cashData.movement).reduce((partialSum, a) => partialSum + a, 0));
+    console.log(cashFlowData.map((cashData) => cashData.movement).reduce((partialSum, a) => partialSum + a, 0));
 
     console.log(cashFlowData);
     console.log(balance);
@@ -69,15 +70,15 @@ export default function CashflowPage() {
                         cashFlowData.map((cashData) =>
                         <CashData>
                                 <Date>
-                                    {cashData.date}
+                                    {dayjs(cashData.date).format('DD/MM')}
                                 </Date>
 
                                 <Description>
-                                    {cashData.description}
+                                    {'descricao'}
                                 </Description>
 
-                                <Value isPositive={cashData.value >= 0 ? true : false}>
-                                    {cashData.value.toFixed(2)}
+                                <Value isPositive={cashData.movement >= 0 ? true : false}>
+                                    {cashData.movement.toFixed(2).replace('.', ',')}
                                 </Value>
                             </CashData>
                         )
@@ -93,8 +94,12 @@ export default function CashflowPage() {
                         {cashFlowData.length !== 0 ? 'SALDO' : ''}
                     </div>
 
-                    <Value isPositive={balance}>
-                        {cashFlowData.length !== 0 ? balance : ''}
+                    <Value isPositive={ cashFlowData.map((cashData) => cashData.movement).reduce((partialSum, a) => partialSum + a, 0) >= 0 ? true : false }>
+                        {
+                            cashFlowData.length !== 0 ?
+                            cashFlowData.map((cashData) => cashData.movement).reduce((partialSum, a) => partialSum + a, 0).toFixed(2) :
+                            ''
+                        }
                     </Value>
                 </Balance>
             </main>
