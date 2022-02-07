@@ -14,7 +14,6 @@ export default function CashflowPage() {
     const { auth, storeLogin } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [cashFlowData, setCashFlowData] = useState([]);
-    const [balance, setBalance] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,12 +38,6 @@ export default function CashflowPage() {
         });
 
     }, [auth.token]);
-
-    console.log(cashFlowData.map((cashData) => cashData.movement).reduce((partialSum, a) => partialSum + a, 0));
-
-    console.log(cashFlowData);
-    console.log(balance);
-    console.log(isLoading);
 
     function logOut() {
         storeLogin(null);
@@ -74,7 +67,7 @@ export default function CashflowPage() {
                                 </Date>
 
                                 <Description>
-                                    {'descricao'}
+                                    {cashData.description}
                                 </Description>
 
                                 <Value isPositive={cashData.movement >= 0 ? true : false}>
@@ -82,7 +75,6 @@ export default function CashflowPage() {
                                 </Value>
                             </CashData>
                         )
-                    
                     :
                     <p>Não há registros de<br/>entrada ou saída</p>   
                     }

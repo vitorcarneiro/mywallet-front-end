@@ -43,7 +43,6 @@ export default function LoginPage() {
             
             setIsLoading(false);
         }
-    
     };
 
     return (

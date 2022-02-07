@@ -20,16 +20,15 @@ function getCashflow(token) {
   );
 }
 
-function addMovement(token, movement, type) {
-  const promise = axios.post(`${BASE_URL}/addMovement/${type}`,
-  movement,
+function addMovement(token, movementInfo, type) {
+  return axios.post(`${BASE_URL}/addMovement/${type}`,
+  movementInfo,
     {
       headers: {
         Authorization: `Bearer ${token}`
       }
     }
   );
-  return promise;
 }
 
 export {

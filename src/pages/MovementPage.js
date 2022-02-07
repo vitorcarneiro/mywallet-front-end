@@ -5,11 +5,12 @@ import { useNavigate } from "react-router";
 import Loader from "react-loader-spinner";
 import CurrencyInput from 'react-currency-input-field';
 
+import { addMovement } from "../services/API";
+import useAuth from "../hooks/useAuth";
 
-import { login } from '../services/API.js';
-import UserContext from "../contexts/AuthContext";
 
 export default function Home() {
+    const { auth } = useAuth();
 	const { type } = useParams();
     const navigate = useNavigate();
 
@@ -19,9 +20,8 @@ export default function Home() {
     const [stringCashValue, setStringCashValue] = useState('');
     const [cashValue, setCashValue] = useState(0);
     const [description, setDescription] = useState('');
-    const { user, setAndPersistUser } = useContext(UserContext);
     
-    function handleNewMovimentation(event) {
+    async function handleNewMovimentation(event) {
         event.preventDefault();
         setIsLoading(true);
 
@@ -33,6 +33,21 @@ export default function Home() {
         setCashValue(parseFloat(cashArray.join('.')));
    
         /* Servidor aqui */
+        try {
+            await addMovement(auth.token, { description, movement: cashValue }, type);
+            
+            setIsLoading(false);
+            navigate('/cashflow');
+
+        } catch (error) {
+            console.log(error.response);
+            alert(`STATUS: ${error.response.statusText} (${error.response.status})
+            
+            ${error.response.data}
+            `);
+            
+            setIsLoading(false);
+        }
     };
 
     return (
