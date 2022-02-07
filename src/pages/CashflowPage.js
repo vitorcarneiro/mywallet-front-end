@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 import Loader from "react-loader-spinner";
 import { ExitOutline, AddCircleOutline, RemoveCircleOutline} from 'react-ionicons'
 import useAuth from "../hooks/useAuth";
@@ -8,41 +9,47 @@ import useAuth from "../hooks/useAuth";
 import { getCashflow } from '../services/API.js';
 
 export default function CashflowPage() {
-    const { auth } = useAuth();
-
+    const { auth, storeLogin } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [cashFlowData, setCashFlowData] = useState([]);
     const [balance, setBalance] = useState(0);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        setIsLoading(true);
-        const promise = getCashflow(auth.token);
+    // useEffect(() => {
+    //     setIsLoading(true);
+    //     const promise = getCashflow(auth.token);
 
-        promise.then((response) => {
-            console.log('then');
-            console.log(response.data);
-            setIsLoading(false);
-            setCashFlowData([...response.data]);
+    //     promise.then((response) => {
+    //         console.log('then');
+    //         console.log(response.data);
+    //         setIsLoading(false);
+    //         setCashFlowData([...response.data]);
 
-        });
+    //     });
 
-        promise.catch((error) => {
-            console.log('catch');
-            console.log(error);
-            alert(`STATUS: ${error.response.statusText} (${error.response.status})
+    //     promise.catch((error) => {
+    //         console.log('catch');
+    //         console.log(error);
+    //         alert(`STATUS: ${error.response.statusText} (${error.response.status})
             
-            ${error.response.data}
-            `);
-            setIsLoading(false);
-        });
+    //         ${error.response.data}
+    //         `);
+    //         setIsLoading(false);
+    //     });
 
-    }, [auth.token]);
+    // }, [auth.token]);
 
-    console.log(cashFlowData.map((cashData) => cashData.movement).reduce((partialSum, a) => partialSum + a, 0));
+    // console.log(cashFlowData.map((cashData) => cashData.movement).reduce((partialSum, a) => partialSum + a, 0));
 
     console.log(cashFlowData);
     console.log(balance);
     console.log(isLoading);
+
+    function logOut() {
+        storeLogin(null);
+        localStorage.removeItem('auth');
+        navigate("/");   
+    }
 
     return (
         <Container>
@@ -52,6 +59,7 @@ export default function CashflowPage() {
                     color={'#ffffff'} 
                     height="25px"
                     width="25px"
+                    onClick={ () => logOut() }
                 />
             </Top>
 
