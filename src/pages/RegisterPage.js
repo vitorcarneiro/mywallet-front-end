@@ -22,28 +22,26 @@ export default function RegisterPage() {
         setIsLoading(true);
 
         if (password !== passwordConfirm) {
-            alert(`Please, confirm right your password!`);
+            alert(`Please, confirm your password!`);
             return;
         }
 
-        const clientData = {
-            email: email,
-            name: name,
-            password: password
-        }
+        const clientData = { email, name, password };
         
-        try {
-            /* servidor aqui */
-
-            await signUp(clientData);
+        try {            
+            const promise = await signUp(clientData);
+            console.log(promise);
+            setIsLoading(false);
+            
             navigate('/');
             
         } catch(error) {
-            alert(`STATUS: ${error.response.status}
+            console.log(error.response);
+            alert(`STATUS: ${error.response.statusText} (${error.response.status})
             
-            ${error.response.data.message}
-            ${(error.response.data.details) ? error.response.data.details : ""}
+            ${error.response.data}
             `);
+            
             setIsLoading(false);
         }
     }

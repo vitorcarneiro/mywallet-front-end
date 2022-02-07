@@ -30,23 +30,21 @@ export default function LoginPage() {
     //     }
     // },[navigate, user])
 
-    function handleLogin(event) {
+    async function handleLogin(event) {
         event.preventDefault();
         setIsLoading(true);
 
-        if (email === admin.email && password === admin.password) {
-            navigate('/cashflow');
+        try {
+            console.log('entrou');
+            const promise = await login({email, password});
+            console.log(promise);
+            
+
+        } catch (error) {
+    
+            
         }
-
-        /* Servidor aqui */
-
-
-        // const clientLogin = {
-        //     email: email,
-        //     password: password
-        // }
-
-        //startLogin(clientLogin);
+    
     };
 
     // function startLogin(clientLogin) {

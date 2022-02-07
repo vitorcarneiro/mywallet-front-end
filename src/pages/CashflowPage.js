@@ -18,7 +18,7 @@ export default function CashflowPage() {
 
     /* Servidor aqui */
 
-    const name = 'admin';
+    const name = 'Vitor Carneiro';
 
     const cashFlowData = [
         {
@@ -164,6 +164,9 @@ const Top = styled.header`
         margin: 0;
         font-size: 26px;
         font-weight: 700;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap; 
     }
 
     .ion-icon {
