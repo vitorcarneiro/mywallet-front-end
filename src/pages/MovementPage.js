@@ -7,7 +7,7 @@ import CurrencyInput from 'react-currency-input-field';
 
 
 import { login } from '../services/API.js';
-import UserContext from "../contexts/UserContext";
+import UserContext from "../contexts/AuthContext";
 
 export default function Home() {
 	const { type } = useParams();

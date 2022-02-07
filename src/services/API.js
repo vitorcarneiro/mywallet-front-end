@@ -2,13 +2,8 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:5000";
 
-async function login(clientLogin) {
-  try {
-    await axios.post(`${BASE_URL}/sign-in`, clientLogin);
-    
-  } catch (error) {
-    
-  }
+function login(clientLogin) {
+  return axios.post(`${BASE_URL}/sign-in`, clientLogin);
 };
 
 function signUp(clientData) {

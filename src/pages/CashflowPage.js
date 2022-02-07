@@ -7,7 +7,7 @@ import { ExitOutline, AddCircleOutline, RemoveCircleOutline} from 'react-ionicon
 
 
 import { login } from '../services/API.js';
-import UserContext from "../contexts/UserContext";
+import UserContext from "../contexts/AuthContext";
 
 export default function CashflowPage() {
 

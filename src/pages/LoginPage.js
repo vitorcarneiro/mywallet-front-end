@@ -1,74 +1,50 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import Loader from "react-loader-spinner";
 
 import { login } from '../services/API.js';
-import UserContext from "../contexts/UserContext";
+import useAuth from "../hooks/useAuth";
 
 export default function LoginPage() {
-
-    const admin = {
-        name: "admin",
-        email: "admin@admin",
-        password: "admin"
-    }
-
     const [isLoading, setIsLoading] = useState(false);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const { auth, storeLogin } = useAuth();
     const navigate = useNavigate();
-
-    const { user, setAndPersistUser } = useContext(UserContext);
-
-    // useEffect(() => {
-    //     if (user){
-    //      navigate("/hoje")   
-    //     }
-    // },[navigate, user])
+    
+    useEffect(() => {
+        if (auth && auth.token) {
+            navigate("/cashflow")   
+        }
+    }, [auth]);
+    
 
     async function handleLogin(event) {
         event.preventDefault();
         setIsLoading(true);
 
         try {
-            console.log('entrou');
             const promise = await login({email, password});
-            console.log(promise);
             
+            setIsLoading(false);
+
+            console.log(promise);
+            storeLogin(promise.data);
+            navigate('/cashflow');
 
         } catch (error) {
-    
+            console.log(error.response);
+            alert(`STATUS: ${error.response.statusText} (${error.response.status})
             
+            ${error.response.data}
+            `);
+            
+            setIsLoading(false);
         }
     
     };
-
-    // function startLogin(clientLogin) {
-    //     setIsLoading(true);
-
-    //     const promise = login(clientLogin);
-
-    //     promise.then((clientData) => {
-    //         setAndPersistUser(clientData.data);
-        
-    //         navigate('/hoje');
-    //     });
-        
-    //     promise.catch((error) => {
-    //         console.log(error.response);
-    //         alert(`STATUS: ${error.response.status}
-            
-    //             ${error.response.data.message}
-    //             ${(error.response.data.details) ? error.response.data.details : ""}
-    //         `);
-
-    //         setIsLoading(false);
-    //     });
-    // };
 
     return (
         <Container>

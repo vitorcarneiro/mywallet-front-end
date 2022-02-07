@@ -30,7 +30,6 @@ export default function RegisterPage() {
         
         try {            
             const promise = await signUp(clientData);
-            console.log(promise);
             setIsLoading(false);
             
             navigate('/');
