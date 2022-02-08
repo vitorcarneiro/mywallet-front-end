@@ -2,12 +2,9 @@ import { useState, useEffect } from "react";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import Loader from "react-loader-spinner";
-import { ExitOutline, AddCircleOutline, RemoveCircleOutline} from 'react-ionicons'
 import dayjs from 'dayjs';
+import { ExitOutline, AddCircleOutline, RemoveCircleOutline} from 'react-ionicons';
 import useAuth from "../hooks/useAuth";
-
-
 import { getCashflow } from '../services/API.js';
 
 export default function CashflowPage() {
@@ -21,15 +18,11 @@ export default function CashflowPage() {
         const promise = getCashflow(auth.token);
 
         promise.then((response) => {
-            console.log('then');
-            console.log(response.data);
             setIsLoading(false);
             setCashFlowData([...response.data]);
         });
 
         promise.catch((error) => {
-            console.log('catch');
-            console.log(error);
             alert(`STATUS: ${error.response.statusText} (${error.response.status})
             
             ${error.response.data}
@@ -78,7 +71,6 @@ export default function CashflowPage() {
                     :
                     <p>Não há registros de<br/>entrada ou saída</p>   
                     }
-
                 </CashFlow>
 
                 <Balance>
@@ -291,4 +283,3 @@ const Button = styled(Link)`
         margin: 0;
     }
 `;
-

@@ -1,6 +1,6 @@
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import styled from 'styled-components';
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
 import Loader from "react-loader-spinner";
 import CurrencyInput from 'react-currency-input-field';
@@ -8,34 +8,34 @@ import CurrencyInput from 'react-currency-input-field';
 import { addMovement } from "../services/API";
 import useAuth from "../hooks/useAuth";
 
-
 export default function Home() {
     const { auth } = useAuth();
 	const { type } = useParams();
     const navigate = useNavigate();
-
     const typeText = type === 'cash-in' ? 'entrada' : 'saída';
-
+    
     const [isLoading, setIsLoading] = useState(false);
     const [stringCashValue, setStringCashValue] = useState('');
-    const [cashValue, setCashValue] = useState(0);
     const [description, setDescription] = useState('');
     
     async function handleNewMovimentation(event) {
         event.preventDefault();
         setIsLoading(true);
 
-        const cashArray = stringCashValue.split(',')
-        const decimal = cashArray[1]?.substring(0, cashArray[1].length - 1)
-        
+        const cashArray = stringCashValue.split(',');
+
+        let decimal;
+        if (cashArray[1]) {
+            if (cashArray[1].length === 3) {
+                decimal = cashArray[1]?.substring(0, cashArray[1].length - 1);
+            }
+        }
+
         if (decimal) { cashArray[1] = decimal };
-        
-        setCashValue(parseFloat(cashArray.join('.')));
+        const cashValue = parseFloat(cashArray.join('.'));
    
-        /* Servidor aqui */
         try {
             await addMovement(auth.token, { description, movement: cashValue }, type);
-            
             setIsLoading(false);
             navigate('/cashflow');
 
@@ -45,7 +45,6 @@ export default function Home() {
             
             ${error.response.data}
             `);
-            
             setIsLoading(false);
         }
     };
@@ -212,78 +211,4 @@ const Button = styled.button`
             pointer-events: none;
         `)
     };
-`;
-
-const LogInButton = styled(Link)`
-    text-decoration: none;
-
-    &:focus, &:visited, &:link, &:active {
-        text-decoration: none;
-    }
-
-    &:hover {
-        text-decoration: underline;
-    }
-
-    margin-top: 25px;
-    font-size: 14px;
-    color: #FFF;
-
-    ${({ isLoading }) =>
-        (isLoading && `
-            opacity: 0.7 !important;
-            pointer-events: none !important;
-        `)
-    };
-`;
-
-
-const Balance = styled.div`
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 35px;
-    
-    box-sizing: border-box;
-    padding: 12px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-    background-color: #FFF;
-    border-radius: 0 0 5px 5px;
-    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.15);
-
-    div {
-        font-size: 17px;
-        font-weight: 700;
-        color: #000;
-    }
-`;
-
-const CashData = styled.div`
-    font-size: 16px;
-    text-align: left;
-
-    width: 100%;
-    height: 30px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-`;
-
-const Date = styled.p`
-    color: #C6C6C6;
-`;
-
-const Description = styled.p`
-    color: #000;
-    width: 100%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap; 
 `;

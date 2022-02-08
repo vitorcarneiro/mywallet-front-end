@@ -3,18 +3,14 @@ import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import Loader from "react-loader-spinner";
-
 import { signUp } from '../services/API.js';
 
 export default function RegisterPage() {
-
     const [isLoading, setIsLoading] = useState(false);
-
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
-
     const navigate = useNavigate();
 
     async function submitClientData(event) {
@@ -25,13 +21,10 @@ export default function RegisterPage() {
             alert(`Please, confirm your password!`);
             return;
         }
-
-        const clientData = { email, name, password };
         
-        try {            
-            const promise = await signUp(clientData);
+        try {
+            await signUp({ email, name, password });
             setIsLoading(false);
-            
             navigate('/');
             
         } catch(error) {
@@ -40,7 +33,6 @@ export default function RegisterPage() {
             
             ${error.response.data}
             `);
-            
             setIsLoading(false);
         }
     }

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import Loader from "react-loader-spinner";
-
 import { login } from '../services/API.js';
 import useAuth from "../hooks/useAuth";
 
@@ -18,19 +17,15 @@ export default function LoginPage() {
         if (auth && auth.token) {
             navigate("/cashflow")   
         }
-    }, [auth]);
+    }, [auth, navigate]);
     
-
     async function handleLogin(event) {
         event.preventDefault();
         setIsLoading(true);
 
         try {
             const promise = await login({email, password});
-            
             setIsLoading(false);
-
-            console.log(promise);
             storeLogin(promise.data);
             navigate('/cashflow');
 
@@ -40,7 +35,6 @@ export default function LoginPage() {
             
             ${error.response.data}
             `);
-            
             setIsLoading(false);
         }
     };
