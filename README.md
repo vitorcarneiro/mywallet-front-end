@@ -1,71 +1,49 @@
-# TrackIt App
+# My Wallet
 
-Now, you are able to track your habits with this app, so let`s [TrackIt](https://trackit-vitor-carneiro.vercel.app/).
+An easy to use financial manager. Track your revenues and expenses to learn how you spend your money and know all the time how much you have.
+
+It's a mobile app, you can access it [here](https://mywallet-vitorcarneiro.vercel.app/).
+
+This app was built and designed by [Vitor Carneiro](https://github.com/vitorcarneiro).
+
+<hr />
 
 <p align="center">
-  <img src="./src/assets/trackit-usage.gif" alt="trackit-usage.gif" height="540" />
+  <img src="./src/assets/img/my-wallet-usage.gif" alt="my-wallet-usage.gif" height="540" />
 </p>
+
+<hr />
 
 ## About
 
-TrackIt is a habit tracker that helps showing you what your day habit and if you ara doing it right with consistency.
-Reaching your goals every day and showing it to you improving you.
-
-In Today page shows the habit of that specifically day (ex. on mondays your habit is ride a bike around the nearest park).
-You can check it if you have done this habit.
-And you can see on history page if you doing it right or not.
+This repository contains the front-end code. You can find the back-end code [here](https://github.com/vitorcarneiro/mywallet-back-end).
 
 ### Implemented features
 
 - Sign Up
 - Login
-- List all habits of today
-- Add habit
-- Remove habit
-- Show calendar which shows days if you've done all habits or not
+- List all financial events for a user
+- Add expense
+- Add revenue
 
-## How to run
-
-1. Clone this repository
-2. Install dependencies
-```bash
-npm i
-```
-3. Run this with
-```bash
-npm start
-```
-4. You can optionally build the project running
-```bash
-npm run build
-```
-5. Finally access http://localhost:3000 on your favorite browser (unless it is Internet Explorer. In this case, review your life decisions)
 ## Technologies
 The following tools and frameworks were used in the construction of the project:<br>
 
-[![wakatime](https://wakatime.com/badge/user/75b063fd-fc90-4981-92ec-8042466ed674/project/fb53cd2f-b2ff-4ca4-b453-ed5d62586c42.svg)](https://wakatime.com/@vitorcarneiro/projects/rkocqcduyg?start=2022-01-07&end=2022-01-13)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) 
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![StyledComponents](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![ReactRouter](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![ExpressJs](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+
 <p>
-  <img style='margin: 5px;' src="https://img.shields.io/badge/react-app%20-%2320232a.svg?&style=flat&color=60ddf9&logo=react&logoColor=%2361DAFB"/>
-  <img style='margin: 5px;' src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=flat&color=informational'>
-  <img style='margin: 5px;' src='https://img.shields.io/badge/styled-components%20-%2320232a.svg?&style=flat&color=b8679e&logo=styled-components&logoColor=%3a3a3a'>
-  <img style='margin: 5px;' src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=flat&color=informational'>
-  <img style='margin: 5px;' src="https://img.shields.io/badge/react_router%20-%2320232a.svg?&style=flat&logo=react&logoColor=%2361DAFB"/>
-  <img style='margin: 5px;' src='https://img.shields.io/badge/react-ionicons%20-%2320232a.svg?&style=flat&color=f28dc7&logo=react-icons&logoColor=%2361DAFB'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/full-stack%20-%2320232a.svg?&style=flat&color=informational'> 
+  <img style='margin: 5px;' src='https://img.shields.io/badge/cors%20-%2320232a.svg?&style=flat&color=informational'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/joi%20-%2320232a.svg?&style=flat&color=informational'>
 </p>
 
 ## How to run
 
-1. Clone this repository
-2. Install dependencies
-```bash
-npm i
-```
-4. Run the front-end with
-```bash
-npm start
-```
-5. You can optionally build the project running
-```bash
-npm run build
-```
-6. Finally access http://localhost:3000 on your favorite browser (unless it is Internet Explorer. In this case, review your life decisions)
+You can access the deploy [here](https://mywallet-vitorcarneiro.vercel.app/).
